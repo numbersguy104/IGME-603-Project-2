@@ -8,7 +8,7 @@ public class FocusCircle : MonoBehaviour
     [Tooltip("Size the circle will lose per second (as a fraction of the total size) when the mouse is not in the circle")]
     [SerializeField] private float shrinkRate = 0.2f;
 
-    private bool gameStarted = false;
+    public bool gameStarted = false;
     private float startingDiameter;
     private Vector2 destination;
     private Vector2 screenSize;
@@ -28,15 +28,13 @@ public class FocusCircle : MonoBehaviour
 
         if (gameStarted)
         {
-            if (position == destination)
+            if (Vector2.Distance(position, destination) < 0.01f)
             {
                 NewDestination();
             }
 
             if (Vector2.Distance(position, mousePosition) > _rectTransform.rect.size.x / 2)
             {
-                Debug.Log(position);
-                Debug.Log(mousePosition);
                 float newDiameter = _rectTransform.rect.size.x - (startingDiameter * shrinkRate * Time.deltaTime);
                 _rectTransform.sizeDelta = new Vector2(newDiameter, newDiameter);
 
@@ -61,8 +59,9 @@ public class FocusCircle : MonoBehaviour
     private void NewDestination()
     {
         //Pick a random point on screen, but don't go off the edge of the screen
-        float x = Random.value * (screenSize.x - _rectTransform.rect.size.x / 2);
-        float y = Random.value * (screenSize.y - _rectTransform.rect.size.y / 2);
+        float diameter = _rectTransform.rect.size.x;
+        float x = Random.value * (screenSize.x - diameter) + diameter / 2;
+        float y = Random.value * (screenSize.y - diameter) + diameter / 2;
         destination = new Vector2(x, y);
     }
 }
