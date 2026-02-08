@@ -2,15 +2,10 @@ using UnityEngine;
 
 public class Popup : MonoBehaviour
 {
-    float duration = 1.0f;
+    private float duration = 1.0f;
     public void SetDuration(float newDuration)
     {
         duration = newDuration;
-    }
-
-    private void Start()
-    {
-        
     }
 
     private void Update()
