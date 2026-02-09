@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class DistractionManager : MonoBehaviour
 {
@@ -9,6 +10,8 @@ public class DistractionManager : MonoBehaviour
     [Header("Popup")]
     [Tooltip("How often a popup will appear - every X seconds")]
     [SerializeField] private float popupRate = 1.0f;
+    [Tooltip("List of sprites for popups")]
+    [SerializeField] private Sprite[] popupSprites;
     [Tooltip("Minimum popup duration, in seconds")]
     [SerializeField] private float popupDurationMinimum = 3.0f;
     [Tooltip("Maximum popup duration, in seconds")]
@@ -53,9 +56,12 @@ public class DistractionManager : MonoBehaviour
             nextPopupTime += popupRate;
 
             GameObject popup = Instantiate(popupPrefab, transform);
-            popup.GetComponent<Popup>().SetDuration(Random.Range(popupDurationMinimum, popupDurationMaximum));
+            Popup popupScript = popup.GetComponent<Popup>();
+            popupScript.SetDuration(Random.Range(popupDurationMinimum, popupDurationMaximum));
+            popupScript.SetSprite(popupSprites[Random.Range(0, popupSprites.Length)]);
 
-            Vector2 popupSize = popup.GetComponent<RectTransform>().rect.size;
+            Image popupImage = popup.GetComponent<Image>();
+            Vector2 popupSize = new Vector2(popupImage.preferredHeight, popupImage.preferredWidth);
             Vector2 position = RandomScreenPosition(popupSize / 2);
             popup.transform.position = position;
         }

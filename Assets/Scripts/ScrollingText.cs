@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 
 public class ScrollingText : MonoBehaviour
@@ -20,9 +21,9 @@ public class ScrollingText : MonoBehaviour
 
         _rectTransform = GetComponent<RectTransform>();
 
-        float height = _rectTransform.rect.height;
+        float height = GetComponent<TextMeshProUGUI>().preferredHeight;
         float canvasHeight = transform.parent.GetComponent<RectTransform>().rect.height;
-        stopScrollingAt = canvasHeight - height;
+        stopScrollingAt = height - canvasHeight;
 
         FindAnyObjectByType<FocusCircle>().GameStart.AddListener(StartGame);
     }

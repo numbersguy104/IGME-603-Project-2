@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Popup : MonoBehaviour
 {
@@ -6,6 +7,11 @@ public class Popup : MonoBehaviour
     public void SetDuration(float newDuration)
     {
         duration = newDuration;
+    }
+
+    public void SetSprite(Sprite newSprite)
+    {
+        GetComponent<Image>().sprite = newSprite;
     }
 
     private void Update()

@@ -236,9 +236,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   popupRate: 1
+  popupSprites:
+  - {fileID: 5322661941387007901, guid: a06fbe0392b2b3545a6d2a0ae7d6f266, type: 3}
+  - {fileID: 8263594449041901638, guid: 02ad86a27c9600744802c194ae797b82, type: 3}
+  - {fileID: -7232521027535748977, guid: 92514199b434bf449a05a703d131bb60, type: 3}
+  - {fileID: 594318413343068850, guid: 479c4a55168bd0f47a240f12f8b31d6b, type: 3}
+  - {fileID: 3803392216920353995, guid: c98f66f5176812d45b8cd0d5668ff46c, type: 3}
+  - {fileID: 7195311837014146395, guid: d5610084e437210408f12083f6e6a6a9, type: 3}
   popupDurationMinimum: 3
   popupDurationMaximum: 5
   qteRate: 5
+  qteKeys: wasd
   qteInputsMinimum: 3
   qteInputsMaximum: 7
   popupPrefab: {fileID: 593062047044940800, guid: c92c10e6a8b349b4ab706e22227e104f, type: 3}
@@ -664,12 +672,18 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore
-    eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt
-    in culpa qui officia deserunt mollit anim id est laborum.
+  m_text: "Make customers happy through early and continuous delivery of useful software:
+    Customers don\u2019t care about your internal processes \u2014 they just want
+    a product that works. Traditional methods make them wait months (or even years)
+    for a finished product. Agile flips that by delivering small, usable updates
+    early and often.\r\nEmbrace changing requirements, even in later stages: If you\u2019re
+    afraid of change, Agile probably isn\u2019t for you. Some teams try to fight
+    evolving requirements, but customer needs change. Agile embraces that instead
+    of resisting it.\r\nDeliver work frequently, from a couple of weeks to a couple
+    of months, with a preference for the shorter timescale: Some teams spend months
+    planning before they write a single line of code. That\u2019s often a mistake.
+    Agile cross-functional teams break projects into short cycles (usually two to
+    four weeks) and release something usable at the end of each one."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 89be3d3c0f2cc174a812531dd7602499, type: 2}
   m_sharedMaterial: {fileID: 3663651404034253288, guid: 89be3d3c0f2cc174a812531dd7602499, type: 2}
