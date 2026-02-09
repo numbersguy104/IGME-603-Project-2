@@ -6,7 +6,7 @@ public class FocusCircle : MonoBehaviour
 {
     public bool gameStarted = false;
     private float startingDiameter;
-    private float secondsElapsed = 0.0f;
+    private float canvasScale;
     private Vector2 destination;
     private Vector2 screenSize;
     private RectTransform _rectTransform;
@@ -24,7 +24,9 @@ public class FocusCircle : MonoBehaviour
         _rectTransform = GetComponent<RectTransform>();
         startingDiameter = _rectTransform.rect.size.x;
 
-        screenSize = transform.parent.GetComponent<RectTransform>().rect.size;
+        Transform canvas = transform.parent;
+        canvasScale = canvas.GetComponent<Canvas>().scaleFactor;
+        screenSize = canvas.GetComponent<RectTransform>().rect.size * canvasScale;
     }
     private void Update()
     {
@@ -38,9 +40,9 @@ public class FocusCircle : MonoBehaviour
                 NewDestination();
             }
 
-            if (Vector2.Distance(position, mousePosition) > _rectTransform.rect.size.x / 2)
+            if (Vector2.Distance(position, mousePosition) > _rectTransform.rect.size.x / 2 * canvasScale)
             {
-                float newDiameter = _rectTransform.rect.size.x - (startingDiameter * shrinkRate * Time.deltaTime);
+                float newDiameter = _rectTransform.rect.size.x - (startingDiameter * shrinkRate * Time.deltaTime * canvasScale);
                 _rectTransform.sizeDelta = new Vector2(newDiameter, newDiameter);
 
                 if (_rectTransform.rect.size.x <= 0)
@@ -50,10 +52,8 @@ public class FocusCircle : MonoBehaviour
                 }
             }
 
-            float tickSpeed = speed * Time.deltaTime;
+            float tickSpeed = speed * Time.deltaTime * canvasScale;
             _rectTransform.position = Vector2.MoveTowards(_rectTransform.position, destination, tickSpeed);
-
-            secondsElapsed += Time.deltaTime;
         }
         else if (Vector2.Distance(position, mousePosition) <= _rectTransform.rect.size.x / 2)
         {

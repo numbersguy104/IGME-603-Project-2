@@ -37,7 +37,7 @@ public class DistractionManager : MonoBehaviour
 
     private void Start()
     {
-        screenSize = GetComponent<RectTransform>().rect.size;
+        screenSize = GetComponent<RectTransform>().rect.size * GetComponent<Canvas>().scaleFactor;
 
         nextPopupTime = popupRate;
         nextQTETime = qteRate;
