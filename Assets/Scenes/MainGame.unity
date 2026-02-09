@@ -238,7 +238,11 @@ MonoBehaviour:
   popupRate: 1
   popupDurationMinimum: 3
   popupDurationMaximum: 5
+  qteRate: 5
+  qteInputsMinimum: 3
+  qteInputsMaximum: 7
   popupPrefab: {fileID: 593062047044940800, guid: c92c10e6a8b349b4ab706e22227e104f, type: 3}
+  qtePrefab: {fileID: 593062047044940800, guid: 144b18318df89b847ba4fea1d45c1c80, type: 3}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0

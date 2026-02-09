@@ -16,13 +16,29 @@ public class DistractionManager : MonoBehaviour
 
     private float nextPopupTime;
 
+    [Header("QTE")]
+    [Tooltip("How often a QTE will appear - every X seconds")]
+    [SerializeField] private float qteRate = 5.0f;
+    [Tooltip("Valid keys that can appear in QTEs, stored as a lowercase string without spaces")]
+    [SerializeField] private string qteKeys = "wasd";
+    [Tooltip("Minimum amount of key presses needed for QTE prompts")]
+    [SerializeField] private int qteInputsMinimum = 3;
+    [Tooltip("Maximum amount of key presses needed for QTE prompts")]
+    [SerializeField] private int qteInputsMaximum = 7;
+
+    private float nextQTETime;
+
     [Header("Prefabs")]
     [SerializeField] private GameObject popupPrefab;
+    [SerializeField] private GameObject qtePrefab;
 
     private void Start()
     {
         screenSize = GetComponent<RectTransform>().rect.size;
+
         nextPopupTime = popupRate;
+        nextQTETime = qteRate;
+
         FindAnyObjectByType<FocusCircle>().GameStart.AddListener(StartGame);
     }
 
@@ -42,6 +58,28 @@ public class DistractionManager : MonoBehaviour
             Vector2 popupSize = popup.GetComponent<RectTransform>().rect.size;
             Vector2 position = RandomScreenPosition(popupSize / 2);
             popup.transform.position = position;
+        }
+
+        if (time > nextQTETime)
+        {
+            nextQTETime += qteRate;
+
+            GameObject qte = Instantiate(qtePrefab, transform);
+            int keyCount = Random.Range(qteInputsMinimum, qteInputsMaximum + 1);
+            string chosenKeys = "";
+            for (int i = 0; i < keyCount; i++)
+            {
+                int keyIndex = Random.Range(0, qteKeys.Length);
+                chosenKeys = chosenKeys + qteKeys[keyIndex];
+            }
+            while (chosenKeys.Contains("ass")) {
+                chosenKeys = chosenKeys.Replace("ass", "sas");
+            }
+            qte.GetComponent<QTE>().SetKeys(chosenKeys);
+
+            Vector2 qteSize = qte.GetComponent<RectTransform>().rect.size;
+            Vector2 position = RandomScreenPosition(qteSize / 2);
+            qte.transform.position = position;
         }
     }
 
