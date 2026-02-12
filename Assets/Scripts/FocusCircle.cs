@@ -7,6 +7,7 @@ public class FocusCircle : MonoBehaviour
     public bool gameStarted = false;
     private float startingDiameter;
     private float canvasScale;
+    private float shrinkTimer;
     private Vector2 destination;
     private Vector2 screenSize;
     private RectTransform _rectTransform;
@@ -16,6 +17,8 @@ public class FocusCircle : MonoBehaviour
 
     [Tooltip("Speed of the circle's random movement, in units/second")]
     [SerializeField] private float speed = 100.0f;
+    [Tooltip("How long the mouse can be off of the circle before it starts shrinking, in seconds")]
+    [SerializeField] private float shrinkDelay = 0.5f;
     [Tooltip("Size the circle will lose per second (as a fraction of the total size) when the mouse is not in the circle")]
     [SerializeField] private float shrinkRate = 0.2f;
 
@@ -42,14 +45,25 @@ public class FocusCircle : MonoBehaviour
 
             if (Vector2.Distance(position, mousePosition) > _rectTransform.rect.size.x / 2 * canvasScale)
             {
-                float newDiameter = _rectTransform.rect.size.x - (startingDiameter * shrinkRate * Time.deltaTime * canvasScale);
-                _rectTransform.sizeDelta = new Vector2(newDiameter, newDiameter);
-
-                if (_rectTransform.rect.size.x <= 0)
+                if (shrinkTimer <= 0.0f)
                 {
-                    GameEnd.Invoke();
-                    SceneManager.LoadScene("GameOver");
+                    float newDiameter = _rectTransform.rect.size.x - (startingDiameter * shrinkRate * Time.deltaTime);
+                    _rectTransform.sizeDelta = new Vector2(newDiameter, newDiameter);
+
+                    if (_rectTransform.rect.size.x <= 0)
+                    {
+                        GameEnd.Invoke();
+                        SceneManager.LoadScene("GameOver");
+                    }
                 }
+                else
+                {
+                    shrinkTimer -= Time.deltaTime;
+                }
+            }
+            else
+            {
+                shrinkTimer = shrinkDelay;
             }
 
             float tickSpeed = speed * Time.deltaTime * canvasScale;

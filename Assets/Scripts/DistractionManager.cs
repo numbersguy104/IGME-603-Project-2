@@ -16,6 +16,10 @@ public class DistractionManager : MonoBehaviour
     [SerializeField] private float popupDurationMinimum = 3.0f;
     [Tooltip("Maximum popup duration, in seconds")]
     [SerializeField] private float popupDurationMaximum = 5.0f;
+    [Tooltip("Minimum scale of popups relative to the base image")]
+    [SerializeField] private float popupScaleMinimum = 0.7f;
+    [Tooltip("Maximum scale of popups relative to the base image")]
+    [SerializeField] private float popupScaleMaximum = 1.3f;
 
     private float nextPopupTime;
 
@@ -56,9 +60,14 @@ public class DistractionManager : MonoBehaviour
             nextPopupTime += popupRate;
 
             GameObject popup = Instantiate(popupPrefab, transform);
+
             Popup popupScript = popup.GetComponent<Popup>();
-            popupScript.SetDuration(Random.Range(popupDurationMinimum, popupDurationMaximum));
+            float randomDuration = Random.Range(popupDurationMinimum, popupDurationMaximum);
+            popupScript.SetDuration(randomDuration);
             popupScript.SetSprite(popupSprites[Random.Range(0, popupSprites.Length)]);
+
+            float randomScale = Random.Range(popupScaleMinimum, popupScaleMaximum);
+            popup.transform.localScale *= randomScale;
 
             Image popupImage = popup.GetComponent<Image>();
             Vector2 popupSize = new Vector2(popupImage.preferredHeight, popupImage.preferredWidth);

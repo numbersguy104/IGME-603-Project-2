@@ -235,7 +235,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd2ab87b87d90394692ea5f96dcaeb16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  popupRate: 1
+  popupRate: 2
   popupSprites:
   - {fileID: 5322661941387007901, guid: a06fbe0392b2b3545a6d2a0ae7d6f266, type: 3}
   - {fileID: 8263594449041901638, guid: 02ad86a27c9600744802c194ae797b82, type: 3}
@@ -243,8 +243,10 @@ MonoBehaviour:
   - {fileID: 594318413343068850, guid: 479c4a55168bd0f47a240f12f8b31d6b, type: 3}
   - {fileID: 3803392216920353995, guid: c98f66f5176812d45b8cd0d5668ff46c, type: 3}
   - {fileID: 7195311837014146395, guid: d5610084e437210408f12083f6e6a6a9, type: 3}
-  popupDurationMinimum: 3
-  popupDurationMaximum: 5
+  popupDurationMinimum: 1.5
+  popupDurationMaximum: 3
+  popupScaleMinimum: 0.6
+  popupScaleMaximum: 0.8
   qteRate: 5
   qteKeys: wasd
   qteInputsMinimum: 3
@@ -484,6 +486,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   speed: 100
+  shrinkDelay: 0.5
   shrinkRate: 0.2
 --- !u!1 &619394800
 GameObject:
