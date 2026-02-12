@@ -1,25 +1,59 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class QTE : MonoBehaviour
 {
+    private bool isActive = true;
     private string keys = "";
     private int keyCountDone = 0;
 
+    Image _popupSprite;
+    Image _popupOutline;
+
+    private void Start()
+    {
+        _popupSprite = transform.Find("Popup Sprite").GetComponent<Image>();
+        _popupOutline = transform.Find("Outline").GetComponent<Image>();
+        int siblingCount = transform.parent.childCount;
+        int siblingIndex = transform.GetSiblingIndex();
+        if (siblingCount > 1)
+        {
+            //Render behind other QTEs that spawned earlier
+            transform.SetSiblingIndex(0);
+
+            SetActive(false);
+        }
+    }
+
     private void Update()
     {
-        string nextKey = keys[keyCountDone].ToString();
-        
-        if (Input.GetKeyDown(nextKey))
+        if (isActive)
         {
-            keyCountDone++;
-            if (keyCountDone == keys.Length)
+            string nextKey = keys[keyCountDone].ToString();
+
+            if (Input.GetKeyDown(nextKey))
             {
-                Destroy(gameObject);
+                keyCountDone++;
+                if (keyCountDone == keys.Length)
+                {
+                    Destroy(gameObject);
+                }
+                else
+                {
+                    UpdateKeyDisplay();
+                }
             }
-            else
+        }
+        else
+        {
+            //If this popup is in front, become active
+            int siblingCount = transform.parent.childCount;
+            int siblingIndex = transform.GetSiblingIndex();
+
+            if (siblingIndex == siblingCount - 1)
             {
-                UpdateKeyDisplay();
+                SetActive(true);
             }
         }
     }
@@ -48,5 +82,23 @@ public class QTE : MonoBehaviour
         }
 
         GetComponentInChildren<TextMeshProUGUI>().text = result;
+    }
+
+    //Sets whether this QTE is currently the one receiving inputs
+    //Also changes the QTE's appearance based on this
+    private void SetActive(bool active)
+    {
+        isActive = active;
+
+        if (active)
+        {
+            _popupSprite.color = Color.white;
+            _popupOutline.enabled = true;
+        }
+        else
+        {
+            _popupSprite.color = Color.gray;
+            _popupOutline.enabled = false;
+        }
     }
 }

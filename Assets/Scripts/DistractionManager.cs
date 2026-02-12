@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -35,6 +36,13 @@ public class DistractionManager : MonoBehaviour
 
     private float nextQTETime;
 
+    [Header("Layers")]
+    [Header("Note: Layers range from 1 to 5. Higher numbered layers render in front.")]
+    [Tooltip("Layer for popups")]
+    [SerializeField] private int popupLayer = 1;
+    [Tooltip("Layer for QTEs")]
+    [SerializeField] private int qteLayer = 5;
+
     [Header("Prefabs")]
     [SerializeField] private GameObject popupPrefab;
     [SerializeField] private GameObject qtePrefab;
@@ -59,7 +67,8 @@ public class DistractionManager : MonoBehaviour
         {
             nextPopupTime += popupRate;
 
-            GameObject popup = Instantiate(popupPrefab, transform);
+            Transform layerParent = GetLayerParent(popupLayer);
+            GameObject popup = Instantiate(popupPrefab, layerParent);
 
             Popup popupScript = popup.GetComponent<Popup>();
             float randomDuration = Random.Range(popupDurationMinimum, popupDurationMaximum);
@@ -79,7 +88,8 @@ public class DistractionManager : MonoBehaviour
         {
             nextQTETime += qteRate;
 
-            GameObject qte = Instantiate(qtePrefab, transform);
+            Transform layerParent = GetLayerParent(qteLayer);
+            GameObject qte = Instantiate(qtePrefab, layerParent);
             int keyCount = Random.Range(qteInputsMinimum, qteInputsMaximum + 1);
             string chosenKeys = "";
             for (int i = 0; i < keyCount; i++)
@@ -113,5 +123,19 @@ public class DistractionManager : MonoBehaviour
     private Vector2 RandomScreenPosition(Vector2 buffer = default)
     {
         return RandomScreenPosition(buffer.x, buffer.y);
+    }
+
+    private Transform GetLayerParent(int layerNumber)
+    {
+        Transform result = transform.Find("Layer " + layerNumber);
+        if (result)
+        {
+            return result;
+        }
+        else
+        {
+            Debug.LogWarning("Invalid layer specified! Drawing to canvas directly...");
+            return transform;
+        }
     }
 }
