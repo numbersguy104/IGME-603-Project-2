@@ -417,16 +417,30 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   popupRate: 2
   popupSprites:
+  - {fileID: 8443579991681736281, guid: 9188a292ba8e1634a9ce51a9b0baf80d, type: 3}
+  - {fileID: 4292195730208115837, guid: 72c059b4bfb426e4da06ed0b09d1ac28, type: 3}
+  - {fileID: 4678861444307042971, guid: cd71fdff4d4eb064aab788e26cdbc9f5, type: 3}
+  - {fileID: -4329504893627714938, guid: d7abdbbb30593a34b91d613937f412b0, type: 3}
+  - {fileID: -8344212017516360883, guid: fac58254c3d3eff4f9ac7c0346441cdd, type: 3}
   - {fileID: 5322661941387007901, guid: a06fbe0392b2b3545a6d2a0ae7d6f266, type: 3}
   - {fileID: 8263594449041901638, guid: 02ad86a27c9600744802c194ae797b82, type: 3}
   - {fileID: -7232521027535748977, guid: 92514199b434bf449a05a703d131bb60, type: 3}
+  - {fileID: 8396303145206541097, guid: fc45512b0959d534e8c8d2b2b3612e99, type: 3}
   - {fileID: 594318413343068850, guid: 479c4a55168bd0f47a240f12f8b31d6b, type: 3}
   - {fileID: 3803392216920353995, guid: c98f66f5176812d45b8cd0d5668ff46c, type: 3}
   - {fileID: 7195311837014146395, guid: d5610084e437210408f12083f6e6a6a9, type: 3}
+  - {fileID: 3218788888307244005, guid: e50082478bd4bf54b9954c1a9f91bc1f, type: 3}
+  - {fileID: -7149258424039110312, guid: 7827e82c3fc5edf4bb6b0db89c57eabd, type: 3}
+  - {fileID: 5106534282092232893, guid: 38bfd5b07363d9a4abd45a9f6f9c8895, type: 3}
+  - {fileID: -7119072624119840826, guid: c17c4f98418d8cf499989aa13a69d16b, type: 3}
+  - {fileID: -2913357612719945269, guid: f8341b13223cf7a45afc4635ee520a69, type: 3}
+  - {fileID: -3456142025348982812, guid: 8fe3cd0d2c712a745883ee56f0868a88, type: 3}
+  - {fileID: 553278742133555572, guid: c6c50bfe22bc10d4280d4f1acdcad58d, type: 3}
+  - {fileID: -103552792185707809, guid: 24ce7faee151fc04581e13a1fc6a048b, type: 3}
   popupDurationMinimum: 1.5
   popupDurationMaximum: 3
-  popupScaleMinimum: 0.6
-  popupScaleMaximum: 0.8
+  popupScaleMinimum: 0.3
+  popupScaleMaximum: 0.4
   qteRate: 5
   qteKeys: wasd
   qteInputsMinimum: 3
