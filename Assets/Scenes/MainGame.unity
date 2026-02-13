@@ -415,7 +415,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd2ab87b87d90394692ea5f96dcaeb16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  popupRate: 2
+  difficultyTimes:
+  - 0
+  - 15
+  - 30
+  - 45
+  - 60
+  - 75
+  - 90
+  popupStageData:
+  - interval: 2
+    duration: 3
+  - interval: 1.8
+    duration: 3.1
+  - interval: 1.7
+    duration: 3.3
+  - interval: 1.5
+    duration: 3.4
+  - interval: 1.4
+    duration: 3.6
+  - interval: 1.2
+    duration: 3.7
+  - interval: 1.1
+    duration: 3.9
   popupSprites:
   - {fileID: 8443579991681736281, guid: 9188a292ba8e1634a9ce51a9b0baf80d, type: 3}
   - {fileID: 4292195730208115837, guid: 72c059b4bfb426e4da06ed0b09d1ac28, type: 3}
@@ -437,14 +459,24 @@ MonoBehaviour:
   - {fileID: -3456142025348982812, guid: 8fe3cd0d2c712a745883ee56f0868a88, type: 3}
   - {fileID: 553278742133555572, guid: c6c50bfe22bc10d4280d4f1acdcad58d, type: 3}
   - {fileID: -103552792185707809, guid: 24ce7faee151fc04581e13a1fc6a048b, type: 3}
-  popupDurationMinimum: 1.5
-  popupDurationMaximum: 3
   popupScaleMinimum: 0.3
   popupScaleMaximum: 0.4
-  qteRate: 5
-  qteKeys: wasd
-  qteInputsMinimum: 3
-  qteInputsMaximum: 7
+  qteStageData:
+  - inputCount: 3
+    validKeys: wasd
+  - inputCount: 4
+    validKeys: wasd
+  - inputCount: 4
+    validKeys: wasdqer
+  - inputCount: 5
+    validKeys: wasdqer
+  - inputCount: 5
+    validKeys: wasdqerfc
+  - inputCount: 6
+    validKeys: wasdqerfc
+  - inputCount: 7
+    validKeys: wasdqerfc
+  qteInterval: 7
   popupLayer: 1
   qteLayer: 5
   popupPrefab: {fileID: 593062047044940800, guid: c92c10e6a8b349b4ab706e22227e104f, type: 3}

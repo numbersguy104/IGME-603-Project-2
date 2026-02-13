@@ -1,22 +1,45 @@
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+
+//Data for the QTE prompts for each stage of difficulty.
+
+[System.Serializable]
+struct PopupStageData
+{
+    [Tooltip("How often a popup will appear in this stage - every X seconds")]
+    public float interval;
+
+    [Tooltip("How long each popup will last in this stage, in seconds")]
+    public float duration;
+}
+
+[System.Serializable]
+struct QTEStageData
+{
+    [Tooltip("Number of key presses required for QTEs in this stage")]
+    public int inputCount;
+
+    [Tooltip("Letter keys that can appear in QTEs for this stage, stored as a string")]
+    public string validKeys;
+}
 
 public class DistractionManager : MonoBehaviour
 {
     private bool gameStarted = false;
+    private int difficultyStage = 0;
     private float time = 0.0f;
     private Vector2 screenSize;
 
+    [Header("General")]
+    [Header("Note: The first value for this should always be 0!")]
+    [Tooltip("Time threshold for each stage of difficulty. The first value should always be 0, representing the first stage starting 0 seconds into gameplay, or immediately.")]
+    [SerializeField] private float[] difficultyTimes = { 0f };
+
     [Header("Popup")]
-    [Tooltip("How often a popup will appear - every X seconds")]
-    [SerializeField] private float popupRate = 1.0f;
-    [Tooltip("List of sprites for popups")]
+    [Tooltip("Rules for popups (their frequency and duration) for each difficulty stage")]
+    [SerializeField] private PopupStageData[] popupStageData;
+    [Tooltip("Sprites that popups can use")]
     [SerializeField] private Sprite[] popupSprites;
-    [Tooltip("Minimum popup duration, in seconds")]
-    [SerializeField] private float popupDurationMinimum = 3.0f;
-    [Tooltip("Maximum popup duration, in seconds")]
-    [SerializeField] private float popupDurationMaximum = 5.0f;
     [Tooltip("Minimum scale of popups relative to the base image")]
     [SerializeField] private float popupScaleMinimum = 0.7f;
     [Tooltip("Maximum scale of popups relative to the base image")]
@@ -25,14 +48,10 @@ public class DistractionManager : MonoBehaviour
     private float nextPopupTime;
 
     [Header("QTE")]
-    [Tooltip("How often a QTE will appear - every X seconds")]
-    [SerializeField] private float qteRate = 5.0f;
-    [Tooltip("Valid keys that can appear in QTEs, stored as a lowercase string without spaces")]
-    [SerializeField] private string qteKeys = "wasd";
-    [Tooltip("Minimum amount of key presses needed for QTE prompts")]
-    [SerializeField] private int qteInputsMinimum = 3;
-    [Tooltip("Maximum amount of key presses needed for QTE prompts")]
-    [SerializeField] private int qteInputsMaximum = 7;
+    [Tooltip("Rules for QTE inputs for each difficulty stage")]
+    [SerializeField] private QTEStageData[] qteStageData;
+    [Tooltip("Time between each QTE appearing")]
+    [SerializeField] private float qteInterval = 5.0f;
 
     private float nextQTETime;
 
@@ -51,8 +70,8 @@ public class DistractionManager : MonoBehaviour
     {
         screenSize = GetComponent<RectTransform>().rect.size * GetComponent<Canvas>().scaleFactor;
 
-        nextPopupTime = popupRate;
-        nextQTETime = qteRate;
+        nextPopupTime = popupStageData[0].interval;
+        nextQTETime = qteInterval;
 
         FindAnyObjectByType<FocusCircle>().GameStart.AddListener(StartGame);
     }
@@ -63,17 +82,31 @@ public class DistractionManager : MonoBehaviour
 
         time += Time.deltaTime;
 
+        if ((difficultyStage < difficultyTimes.Length - 1)
+            && (time > difficultyTimes[difficultyStage + 1]))
+        {
+            //Increase the difficulty without throwing off the time between timed events (such as QTEs)
+            //This code ensures there is no extended gap between timed events when difficulty increases
+            nextPopupTime -= popupStageData[difficultyStage].interval;
+            difficultyStage++;
+            nextPopupTime += popupStageData[difficultyStage].interval;
+
+            //Debug.Log("Increasing difficulty to stage " + difficultyStage + "!");
+        }
+
         if (time > nextPopupTime)
         {
-            nextPopupTime += popupRate;
+            PopupStageData data = popupStageData[difficultyStage];
+            nextPopupTime += data.interval;
 
             Transform layerParent = GetLayerParent(popupLayer);
             GameObject popup = Instantiate(popupPrefab, layerParent);
 
             Popup popupScript = popup.GetComponent<Popup>();
-            float randomDuration = Random.Range(popupDurationMinimum, popupDurationMaximum);
-            popupScript.SetDuration(randomDuration);
-            popupScript.SetSprite(popupSprites[Random.Range(0, popupSprites.Length)]);
+            
+            popupScript.SetDuration(data.duration);
+            Sprite randomSprite = popupSprites[Random.Range(0, popupSprites.Length)];
+            popupScript.SetSprite(randomSprite);
 
             float randomScale = Random.Range(popupScaleMinimum, popupScaleMaximum);
             popup.transform.localScale *= randomScale;
@@ -86,16 +119,19 @@ public class DistractionManager : MonoBehaviour
 
         if (time > nextQTETime)
         {
-            nextQTETime += qteRate;
+            nextQTETime += qteInterval;
 
             Transform layerParent = GetLayerParent(qteLayer);
             GameObject qte = Instantiate(qtePrefab, layerParent);
-            int keyCount = Random.Range(qteInputsMinimum, qteInputsMaximum + 1);
+
+            QTEStageData data = qteStageData[difficultyStage];
+            int keyCount = data.inputCount;
+            string validKeys = data.validKeys;
             string chosenKeys = "";
             for (int i = 0; i < keyCount; i++)
             {
-                int keyIndex = Random.Range(0, qteKeys.Length);
-                chosenKeys = chosenKeys + qteKeys[keyIndex];
+                int keyIndex = Random.Range(0, validKeys.Length);
+                chosenKeys = chosenKeys + validKeys[keyIndex];
             }
             while (chosenKeys.Contains("ass")) {
                 chosenKeys = chosenKeys.Replace("ass", "sas");
