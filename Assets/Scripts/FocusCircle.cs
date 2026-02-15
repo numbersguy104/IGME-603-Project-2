@@ -8,6 +8,9 @@ public class FocusCircle : MonoBehaviour
     private float startingDiameter;
     private float canvasScale;
     private float shrinkTimer;
+    //Yudong Added
+    private float maxDiameter;
+
     private Vector2 destination;
     private Vector2 screenSize;
     private RectTransform _rectTransform;
@@ -28,8 +31,11 @@ public class FocusCircle : MonoBehaviour
         startingDiameter = _rectTransform.rect.size.x;
 
         Transform canvas = transform.parent;
+
         canvasScale = canvas.GetComponent<Canvas>().scaleFactor;
         screenSize = canvas.GetComponent<RectTransform>().rect.size * canvasScale;
+        //Yudong Added
+        maxDiameter = startingDiameter;
     }
     private void Update()
     {
@@ -89,7 +95,9 @@ public class FocusCircle : MonoBehaviour
     //Grows the circle by a fraction (from 0 to 1) of its initial size
     public void Grow(float increasePortion)
     {
-        float newDiameter = _rectTransform.rect.size.x + (startingDiameter * increasePortion);
+        //Wont overgrowth
+        float target = _rectTransform.rect.size.x + (startingDiameter * increasePortion);
+        float newDiameter = Mathf.Min(target, maxDiameter);
         _rectTransform.sizeDelta = new Vector2(newDiameter, newDiameter);
     }
 }

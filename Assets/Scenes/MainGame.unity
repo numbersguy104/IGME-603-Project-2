@@ -739,7 +739,7 @@ MonoBehaviour:
   GameEnd:
     m_PersistentCalls:
       m_Calls: []
-  speed: 100
+  speed: 140
   shrinkDelay: 0.5
   shrinkRate: 0.2
 --- !u!1 &619394800
