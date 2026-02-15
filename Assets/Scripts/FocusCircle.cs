@@ -85,4 +85,11 @@ public class FocusCircle : MonoBehaviour
         float y = Random.value * (screenSize.y - diameter) + diameter / 2;
         destination = new Vector2(x, y);
     }
+
+    //Grows the circle by a fraction (from 0 to 1) of its initial size
+    public void Grow(float increasePortion)
+    {
+        float newDiameter = _rectTransform.rect.size.x + (startingDiameter * increasePortion);
+        _rectTransform.sizeDelta = new Vector2(newDiameter, newDiameter);
+    }
 }

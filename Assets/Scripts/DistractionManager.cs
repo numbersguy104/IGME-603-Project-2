@@ -23,6 +23,18 @@ struct QTEStageData
     public string validKeys;
 }
 
+[System.Serializable]
+struct BarStageData
+{
+    [Tooltip("Speed of the arrow per second, as a percentage of the bar's total height")]
+    public float arrowSpeedPercentage;
+
+    [Tooltip("Size of the success area in this stage, as a percentage of the bar's total height")]
+    public float successPercentage;
+
+    [Tooltip("Size of the perfect area in this stage, as a percentage of the bar's total height")]
+    public float perfectPercentage;
+}
 public class DistractionManager : MonoBehaviour
 {
     private bool gameStarted = false;
@@ -55,16 +67,29 @@ public class DistractionManager : MonoBehaviour
 
     private float nextQTETime;
 
+    [Header("Bar Minigame")]
+    [Tooltip("Rules for the bar minigame for each difficulty stage")]
+    [SerializeField] private BarStageData[] barStageData;
+    [Tooltip("How much the circle should grow for each perfect completion of the bar minigame, as a fraction (0 to 1) of the circle's starting size")]
+    [SerializeField] private float barGrowthOnPerfect = 0.05f;
+    [Tooltip("Time between each bar minigame appearing")]
+    [SerializeField] private float barInterval = 11.0f;
+
+    private float nextBarTime;
+
     [Header("Layers")]
     [Header("Note: Layers range from 1 to 5. Higher numbered layers render in front.")]
     [Tooltip("Layer for popups")]
     [SerializeField] private int popupLayer = 1;
     [Tooltip("Layer for QTEs")]
-    [SerializeField] private int qteLayer = 5;
+    [SerializeField] private int qteLayer = 3;
+    [Tooltip("Layer for bar minigames")]
+    [SerializeField] private int barLayer = 5;
 
     [Header("Prefabs")]
     [SerializeField] private GameObject popupPrefab;
     [SerializeField] private GameObject qtePrefab;
+    [SerializeField] private GameObject barPrefab;
 
     private void Start()
     {
@@ -72,6 +97,7 @@ public class DistractionManager : MonoBehaviour
 
         nextPopupTime = popupStageData[0].interval;
         nextQTETime = qteInterval;
+        nextBarTime = barInterval;
 
         FindAnyObjectByType<FocusCircle>().GameStart.AddListener(StartGame);
     }
@@ -141,6 +167,25 @@ public class DistractionManager : MonoBehaviour
             Vector2 qteSize = qte.GetComponent<RectTransform>().rect.size;
             Vector2 position = RandomScreenPosition(qteSize / 2);
             qte.transform.position = position;
+        }
+
+        if (time > nextBarTime)
+        {
+            nextBarTime += barInterval;
+
+            Transform layerParent = GetLayerParent(barLayer);
+            GameObject bar = Instantiate(barPrefab, layerParent);
+
+            BarStageData data = barStageData[difficultyStage];
+            float successPortion = data.successPercentage / 100.0f;
+            float perfectPortion = data.perfectPercentage / 100.0f;
+            bar.GetComponent<BarMinigame>().SetAreas(successPortion, perfectPortion);
+            bar.GetComponent<BarMinigame>().SetPerfectGrowth(barGrowthOnPerfect);
+            bar.GetComponent<BarMinigame>().SetArrowSpeed(data.arrowSpeedPercentage);
+
+            Vector2 barSize = bar.GetComponent<RectTransform>().rect.size;
+            Vector2 position = RandomScreenPosition(barSize / 2);
+            bar.transform.position = position;
         }
     }
 

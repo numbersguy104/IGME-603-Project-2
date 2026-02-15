@@ -477,10 +477,36 @@ MonoBehaviour:
   - inputCount: 7
     validKeys: wasdqerfc
   qteInterval: 7
+  barStageData:
+  - arrowSpeedPercentage: 20
+    successPercentage: 40
+    perfectPercentage: 20
+  - arrowSpeedPercentage: 24
+    successPercentage: 38
+    perfectPercentage: 18
+  - arrowSpeedPercentage: 28
+    successPercentage: 35
+    perfectPercentage: 16
+  - arrowSpeedPercentage: 32
+    successPercentage: 33
+    perfectPercentage: 14
+  - arrowSpeedPercentage: 36
+    successPercentage: 30
+    perfectPercentage: 13
+  - arrowSpeedPercentage: 40
+    successPercentage: 27
+    perfectPercentage: 12
+  - arrowSpeedPercentage: 40
+    successPercentage: 25
+    perfectPercentage: 10
+  barGrowthOnPerfect: 0.05
+  barInterval: 11
   popupLayer: 1
-  qteLayer: 5
+  qteLayer: 3
+  barLayer: 5
   popupPrefab: {fileID: 593062047044940800, guid: c92c10e6a8b349b4ab706e22227e104f, type: 3}
   qtePrefab: {fileID: 593062047044940800, guid: 144b18318df89b847ba4fea1d45c1c80, type: 3}
+  barPrefab: {fileID: 2881867714956555530, guid: ec01e3b593d810e45823a6d6f2553058, type: 3}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0

@@ -132,12 +132,12 @@ TextureImporter:
       name: FishUI_Arrow_0
       rect:
         serializedVersion: 2
-        x: 2
+        x: 0
         y: 182
-        width: 27
+        width: 100
         height: 30
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -150,33 +150,11 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
-    - serializedVersion: 2
-      name: FishUI_Arrow_1
-      rect:
-        serializedVersion: 2
-        x: 28
-        y: 194
-        width: 68
-        height: 8
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 9d8d1dfe4414d5240800000000000000
-      internalID: 4782050143674423513
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: fabe8e7c2c8accd4da781a666f071297
     internalID: 0
     vertices: []
     indices: 
