@@ -100,6 +100,19 @@ public class DistractionManager : MonoBehaviour
         nextBarTime = barInterval;
 
         FindAnyObjectByType<FocusCircle>().GameStart.AddListener(StartGame);
+
+        if (difficultyTimes.Length != popupStageData.Length)
+        {
+            Debug.LogWarning("Warning: Popup stage data has too few or too many entries! The number of entries in \"Popup Stage Data\" should match the number of entries in \"Difficulty Times\". Errors may follow!");
+        }
+        if (difficultyTimes.Length != qteStageData.Length)
+        {
+            Debug.LogWarning("Warning: QTE stage data has too few or too many entries! The number of entries in \"Qte Stage Data\" should match the number of entries in \"Difficulty Times\". Errors may follow!");
+        }
+        if (difficultyTimes.Length != barStageData.Length)
+        {
+            Debug.LogWarning("Warning: Bar minigame stage data has too few or too many entries! The number of entries in \"Bar Stage Data\" should match the number of entries in \"Difficulty Times\". Errors may follow!");
+        }
     }
 
     private void Update()
