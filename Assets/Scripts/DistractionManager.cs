@@ -146,7 +146,18 @@ public class DistractionManager : MonoBehaviour
             Popup popupScript = popup.GetComponent<Popup>();
             
             popupScript.SetDuration(data.duration);
-            Sprite randomSprite = popupSprites[Random.Range(0, popupSprites.Length)];
+
+            float useThoughtBubble = Random.value;
+            int spriteIndex;
+            if (useThoughtBubble < 0.3f)
+            {
+                spriteIndex = Random.Range(20, 46);
+            }
+            else
+            {
+                spriteIndex = Random.Range(0, 20);
+            }
+            Sprite randomSprite = popupSprites[spriteIndex];
             popupScript.SetSprite(randomSprite);
 
             float randomScale = Random.Range(popupScaleMinimum, popupScaleMaximum);
