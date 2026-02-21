@@ -188,6 +188,7 @@ public class DistractionManager : MonoBehaviour
             while (chosenKeys.Contains("ass")) {
                 chosenKeys = chosenKeys.Replace("ass", "sas");
             }
+            qte.GetComponent<QTE>().SetAllInputs(validKeys);
             qte.GetComponent<QTE>().SetKeys(chosenKeys);
 
             Vector2 qteSize = qte.GetComponent<RectTransform>().rect.size * canvasScale;

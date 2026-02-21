@@ -4,9 +4,15 @@ using UnityEngine.UI;
 
 public class QTE : MonoBehaviour
 {
+    public static int completedQTEs = 0;
+    public static float totalQTETime;
+
     private bool isActive = true;
     private string keys = "";
+    private string possibleInputs = "";
     private int keyCountDone = 0;
+    private float timeActive = 0.0f;
+    private float timeDisplayRed = 0.0f;
 
     Image _popupSprite;
     Image _popupOutline;
@@ -30,6 +36,12 @@ public class QTE : MonoBehaviour
     {
         if (isActive)
         {
+            if (timeDisplayRed > 0.0f)
+            {
+                timeDisplayRed -= Time.deltaTime;
+                timeDisplayRed = Mathf.Max(timeDisplayRed, 0.0f);
+                UpdateKeyDisplay();
+            }
             string nextKey = keys[keyCountDone].ToString();
 
             if (Input.GetKeyDown(nextKey))
@@ -37,11 +49,27 @@ public class QTE : MonoBehaviour
                 keyCountDone++;
                 if (keyCountDone == keys.Length)
                 {
+                    completedQTEs++;
+                    totalQTETime += timeActive;
                     Destroy(gameObject);
                 }
                 else
                 {
                     UpdateKeyDisplay();
+                }
+            }
+            else
+            {
+                foreach (char wrongChar in possibleInputs)
+                {
+                    string wrongInput = wrongChar.ToString();
+                    if (wrongInput != nextKey && Input.GetKeyDown(wrongInput))
+                    {
+                        keyCountDone = 0;
+                        timeDisplayRed = 0.5f;
+                        UpdateKeyDisplay();
+                        break;
+                    }
                 }
             }
         }
@@ -56,12 +84,19 @@ public class QTE : MonoBehaviour
                 SetActive(true);
             }
         }
+
+        timeActive += Time.deltaTime;
     }
 
     public void SetKeys(string newKeys)
     {
         keys = newKeys;
         UpdateKeyDisplay();
+    }
+
+    public void SetAllInputs(string inputs)
+    {
+        possibleInputs = inputs;
     }
 
     private void UpdateKeyDisplay()
@@ -72,7 +107,10 @@ public class QTE : MonoBehaviour
         {
             if (i == keyCountDone)
             {
-                result = result + "<color=black>";
+                Color textColor = Color.black;
+                textColor.r = timeDisplayRed / 0.5f;
+                string colorCode = ColorUtility.ToHtmlStringRGB(textColor);
+                result = result + "<color=#" + colorCode + ">";
             }
             result = result + "[" + keys[i].ToString().ToUpper() + "]";
             if (i < keys.Length - 1)
