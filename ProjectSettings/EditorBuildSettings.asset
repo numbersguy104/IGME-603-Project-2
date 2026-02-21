@@ -17,6 +17,15 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/GameOver.unity
     guid: 66025696826929b44b7204c1126d27b9
+  - enabled: 1
+    path: Assets/Scenes/HarderMainGame.unity
+    guid: 9b84a0993e747a644a3d37457d57fc81
+  - enabled: 1
+    path: Assets/Scenes/EasierMainGame.unity
+    guid: 0426d3fa574d77c4cbd8f960ab882842
+  - enabled: 1
+    path: Assets/Scenes/Difficulty.unity
+    guid: 73de1d4d7b1e3a2418f9a6e1e06632be
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0

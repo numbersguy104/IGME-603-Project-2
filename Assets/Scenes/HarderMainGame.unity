@@ -427,11 +427,11 @@ MonoBehaviour:
   - interval: 2
     duration: 3
   - interval: 1.8
-    duration: 3.1
+    duration: 3.2
   - interval: 1.7
-    duration: 3.3
-  - interval: 1.5
     duration: 3.4
+  - interval: 1.5
+    duration: 3.5
   - interval: 1.4
     duration: 3.6
   - interval: 1.2
@@ -459,48 +459,48 @@ MonoBehaviour:
   - {fileID: -3456142025348982812, guid: 8fe3cd0d2c712a745883ee56f0868a88, type: 3}
   - {fileID: 553278742133555572, guid: c6c50bfe22bc10d4280d4f1acdcad58d, type: 3}
   - {fileID: -103552792185707809, guid: 24ce7faee151fc04581e13a1fc6a048b, type: 3}
-  popupScaleMinimum: 0.3
-  popupScaleMaximum: 0.4
+  popupScaleMinimum: 0.4
+  popupScaleMaximum: 0.5
   qteStageData:
-  - inputCount: 3
-    validKeys: wasd
   - inputCount: 4
     validKeys: wasd
-  - inputCount: 4
-    validKeys: wasdqer
+  - inputCount: 5
+    validKeys: wasd
   - inputCount: 5
     validKeys: wasdqer
-  - inputCount: 5
-    validKeys: wasdqerfc
+  - inputCount: 6
+    validKeys: wasdqer
   - inputCount: 6
     validKeys: wasdqerfc
   - inputCount: 7
     validKeys: wasdqerfc
-  qteInterval: 8
+  - inputCount: 8
+    validKeys: wasdqerfzxc
+  qteInterval: 7
   barStageData:
-  - arrowSpeedPercentage: 20
-    successPercentage: 40
-    perfectPercentage: 20
-  - arrowSpeedPercentage: 24
-    successPercentage: 38
-    perfectPercentage: 18
-  - arrowSpeedPercentage: 28
-    successPercentage: 35
-    perfectPercentage: 16
-  - arrowSpeedPercentage: 32
-    successPercentage: 33
-    perfectPercentage: 14
-  - arrowSpeedPercentage: 36
+  - arrowSpeedPercentage: 30
     successPercentage: 30
+    perfectPercentage: 15
+  - arrowSpeedPercentage: 35
+    successPercentage: 28
+    perfectPercentage: 14
+  - arrowSpeedPercentage: 40
+    successPercentage: 26
     perfectPercentage: 13
-  - arrowSpeedPercentage: 40
-    successPercentage: 27
+  - arrowSpeedPercentage: 45
+    successPercentage: 24
     perfectPercentage: 12
-  - arrowSpeedPercentage: 40
-    successPercentage: 25
+  - arrowSpeedPercentage: 50
+    successPercentage: 22
+    perfectPercentage: 11
+  - arrowSpeedPercentage: 55
+    successPercentage: 20
     perfectPercentage: 10
-  barGrowthOnPerfect: 0.05
-  barInterval: 10
+  - arrowSpeedPercentage: 60
+    successPercentage: 20
+    perfectPercentage: 8
+  barGrowthOnPerfect: 0.03
+  barInterval: 8
   popupLayer: 1
   qteLayer: 3
   barLayer: 5
@@ -672,8 +672,8 @@ RectTransform:
   m_GameObject: {fileID: 549372059}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 480941946}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -739,9 +739,9 @@ MonoBehaviour:
   GameEnd:
     m_PersistentCalls:
       m_Calls: []
-  speed: 140
-  shrinkDelay: 0.5
-  shrinkRate: 0.2
+  speed: 170
+  shrinkDelay: 0.3
+  shrinkRate: 0.3
 --- !u!1 &619394800
 GameObject:
   m_ObjectHideFlags: 0
