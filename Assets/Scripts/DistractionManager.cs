@@ -40,6 +40,7 @@ public class DistractionManager : MonoBehaviour
     private bool gameStarted = false;
     private int difficultyStage = 0;
     private float time = 0.0f;
+    private float canvasScale;
     private Vector2 screenSize;
 
     [Header("General")]
@@ -93,7 +94,8 @@ public class DistractionManager : MonoBehaviour
 
     private void Start()
     {
-        screenSize = GetComponent<RectTransform>().rect.size * GetComponent<Canvas>().scaleFactor;
+        canvasScale = GetComponent<Canvas>().scaleFactor;
+        screenSize = GetComponent<RectTransform>().rect.size * canvasScale;
 
         nextPopupTime = popupStageData[0].interval;
         nextQTETime = qteInterval;
@@ -177,7 +179,7 @@ public class DistractionManager : MonoBehaviour
             }
             qte.GetComponent<QTE>().SetKeys(chosenKeys);
 
-            Vector2 qteSize = qte.GetComponent<RectTransform>().rect.size;
+            Vector2 qteSize = qte.GetComponent<RectTransform>().rect.size * canvasScale;
             Vector2 position = RandomScreenPosition(qteSize / 2);
             qte.transform.position = position;
         }
@@ -196,7 +198,7 @@ public class DistractionManager : MonoBehaviour
             bar.GetComponent<BarMinigame>().SetPerfectGrowth(barGrowthOnPerfect);
             bar.GetComponent<BarMinigame>().SetArrowSpeed(data.arrowSpeedPercentage);
 
-            Vector2 barSize = bar.GetComponent<RectTransform>().rect.size;
+            Vector2 barSize = bar.GetComponent<RectTransform>().rect.size * canvasScale;
             Vector2 position = RandomScreenPosition(barSize / 2);
             bar.transform.position = position;
         }

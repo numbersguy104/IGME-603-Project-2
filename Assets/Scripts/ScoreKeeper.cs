@@ -28,7 +28,9 @@ public class ScoreKeeper : MonoBehaviour
             {
                 GameObject.Find("End Text").GetComponent<TextMeshProUGUI>().text = "Game over!\n\nYour score: " + finalTime;
             }
-            else if (currentScene != "MainGame")
+            else if (currentScene != "MainGame"
+                && currentScene != "EasierMainGame"
+                && currentScene != "HarderMainGame")
             {
                 Destroy(gameObject);
             }
