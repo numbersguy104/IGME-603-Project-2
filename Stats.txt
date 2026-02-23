@@ -1,0 +1,4 @@
+Game finished on scene EasierMainGame
+Score: 12
+Average QTE completion time: N/A (no QTEs completed)
+
